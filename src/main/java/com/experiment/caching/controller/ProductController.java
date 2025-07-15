@@ -1,5 +1,6 @@
 package com.experiment.caching.controller;
 
+import com.experiment.caching.dto.response.ProductResponse;
 import com.experiment.caching.service.ProductGeneratorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ public class ProductController {
   private final ProductGeneratorService productGeneratorService;
 
   @PostMapping("generate")
-  public ResponseEntity<String> generateProducts(@RequestParam int count) {
+  public ResponseEntity<ProductResponse> generateProducts(@RequestParam int count) {
     return new ResponseEntity<>(productGeneratorService.generateProducts(count), HttpStatus.OK);
   }
 }

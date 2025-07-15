@@ -1,5 +1,6 @@
 package com.experiment.caching.service.implementation;
 
+import com.experiment.caching.dto.response.ProductResponse;
 import com.experiment.caching.model.Product;
 import com.experiment.caching.repository.ProductRepository;
 import com.experiment.caching.service.ProductGeneratorService;
@@ -18,7 +19,7 @@ public class ProductGeneratorServiceImpl implements ProductGeneratorService {
   private final ProductRepository productRepository;
 
   @Override
-  public String generateProducts(int count) {
+  public ProductResponse generateProducts(int count) {
     Faker faker = new Faker();
     List<Product> products = new ArrayList<>();
 
@@ -34,11 +35,14 @@ public class ProductGeneratorServiceImpl implements ProductGeneratorService {
         products.add(product);
       }
 
+      ProductResponse productResponse = new ProductResponse();
+      productResponse.setMessage("Success generate %d products".formatted(products.size()));
+
       productRepository.saveAll(products);
 
       log.info("[ProductGeneratorService] {} products generated", products.size());
 
-      return "Success generate %d products".formatted(products.size());
+      return productResponse;
     } catch (Exception e) {
       log.error("[ProductGeneratorService] {} products failed", products.size());
 

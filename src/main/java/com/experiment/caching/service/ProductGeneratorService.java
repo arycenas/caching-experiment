@@ -1,6 +1,8 @@
 package com.experiment.caching.service;
 
+import com.experiment.caching.dto.response.ProductResponse;
+
 public interface ProductGeneratorService {
 
-  String generateProducts(int count);
+  ProductResponse generateProducts(int count);
 }
