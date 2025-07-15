@@ -7,7 +7,6 @@ import com.experiment.caching.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,5 +29,10 @@ public class ProductController {
   @PostMapping("search")
   public ResponseEntity<ProductResponse> findProducts(@RequestBody ProductRequest request) {
     return new ResponseEntity<>(productService.getProductByKeyword(request), HttpStatus.OK);
+  }
+
+  @PostMapping("search/cached")
+  public ResponseEntity<ProductResponse> findProductsCached(@RequestBody ProductRequest request) {
+    return new ResponseEntity<>(productService.getProductByKeywordCached(request), HttpStatus.OK);
   }
 }
