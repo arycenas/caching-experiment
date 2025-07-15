@@ -23,6 +23,8 @@ public class ProductGeneratorServiceImpl implements ProductGeneratorService {
     Faker faker = new Faker();
     List<Product> products = new ArrayList<>();
 
+    long startTime = System.currentTimeMillis();
+
     try {
       for (int i = 0; i < count; i++) {
         Product product =
@@ -35,10 +37,13 @@ public class ProductGeneratorServiceImpl implements ProductGeneratorService {
         products.add(product);
       }
 
+      productRepository.saveAll(products);
+
+      long endTime = System.currentTimeMillis();
+
       ProductResponse productResponse = new ProductResponse();
       productResponse.setMessage("Success generate %d products".formatted(products.size()));
-
-      productRepository.saveAll(products);
+      productResponse.setTime("%d ms".formatted(endTime - startTime));
 
       log.info("[ProductGeneratorService] {} products generated", products.size());
 

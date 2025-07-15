@@ -11,5 +11,6 @@ import lombok.Setter;
 public class ProductResponse {
 
   private String message;
+  private String time;
   private List<Product> products = new ArrayList<>();
 }
